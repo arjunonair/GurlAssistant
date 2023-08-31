@@ -21,7 +21,7 @@ def commands():
                 
             #song
             if 'play' in my_text:
-                my_text = my_text.replace('play','')
+                my_text = " ".join(my_text.split("play")[1:]).strip()
                 speak('Playing'+my_text+'in youtube ....')
                 pywhatkit.playonyt(my_text)
             
@@ -48,7 +48,9 @@ def commands():
                     if name in my_text:
                         print(name+"'s phone number is "+phoneNumbers[name])
                         speak(name+"'s phone number is "+phoneNumbers[name])
-
+            elif 'exit' in my_text:
+                speak('Exiting , See ya Later')
+                return False
             else:
                 speak('Data not found, could u ask something else')
 
@@ -69,5 +71,5 @@ def speak(command):
 speak('welcome to your girl assistant, how can i help you')
 
 while(True):
-    commands()
-    
+    if commands() == False:
+        break
